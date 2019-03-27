@@ -1,6 +1,6 @@
 /config.json
 /node_modules
-/log
+/log/**
 /package-lock.json
 /scoreboard
 /sh/updatescoreboard.sh
