@@ -12,13 +12,18 @@ module.exports = class Scoreboard {
     };
     this.path = Conf.ftp_scoreboard_path;
     this.ftp = new jsftp(this.opt);
-    this.data = null;
-
+    Scoreboard.data = null;
+    this.time = 0;
     this.update();
   }
 
   async update() {
-    console.log(NBTReader.parse_nbt(await this.getFile(), true));
+    var t = Date.now();
+    if (t - this.scoreboard_refresh < this.time)
+      return;
+    this.time = Date.now();
+    Scoreboard.data = NBTReader.parse_nbt(await this.getFile(), true);
+    return;
   }
 
   getFile() {
