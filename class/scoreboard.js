@@ -1,16 +1,17 @@
 const jsftp = require('jsftp');
 
 const NBTReader = require('./nbtreader.js');
-const Conf = require('./config');
+const FtpConf = require('../config/ftp');
+const ScoreboardConf = require('../config/scoreboard');
 
 module.exports = class Scoreboard {
   constructor() {
     this.opt = {
-      user: Conf.ftp_user,
-      pass: Conf.ftp_pwd,
-      host: Conf.ftp_ip,
+      user: FtpConf.user,
+      pass: FtpConf.pass,
+      host: FtpConf.host,
     };
-    this.path = Conf.ftp_scoreboard_path;
+    this.path = ScoreboardConf.ftp_path;
     this.ftp = new jsftp(this.opt);
     Scoreboard.data = null;
     this.time = 0;
@@ -19,7 +20,7 @@ module.exports = class Scoreboard {
 
   async update() {
     var t = Date.now();
-    if (t - this.scoreboard_refresh < this.time)
+    if (t - ScoreboardConf.refresh < this.time)
       return;
     this.time = Date.now();
     Scoreboard.data = NBTReader.parse_nbt(await this.getFile(), true);

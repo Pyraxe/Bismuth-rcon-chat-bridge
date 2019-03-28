@@ -1,0 +1,5 @@
+{
+  "token": "Discord bot token",
+  "chat_bridge_channel": "Channel ID where chat bridge will take  place",
+  "prefix": "$"
+}

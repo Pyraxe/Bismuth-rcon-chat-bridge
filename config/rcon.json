@@ -1,0 +1,6 @@
+{
+    "host": "MC Server IP",
+    "port": 25575,
+    "pass": "RCON password set in server.properties",
+    "ping": true
+}
