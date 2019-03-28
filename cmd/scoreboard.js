@@ -2,6 +2,7 @@ const Cmd = require('./cmd');
 
 module.exports = class Scoreboard extends Cmd {
   constructor() {
+    super();
     this.aliases = ['s', 'score', 'scoreboard'];
   }
   process_rcon(discord, rcon, m, a) {

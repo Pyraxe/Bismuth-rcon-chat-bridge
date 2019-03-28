@@ -1,5 +1,5 @@
 const ConfGeneric = require('../../config/generic');
-const log = requir('../../config/generic');
+const Generic = require('../generic');
 
 module.exports = function(discord, rcon, m, old = null) {
   var tellraw = [
@@ -12,7 +12,7 @@ module.exports = function(discord, rcon, m, old = null) {
   }
   var msg = '/tellraw @a [' + JSON.stringify(tellraw) + ']';
   if (ConfGeneric.debug)
-    log('[> RCON]    ' + msg);
+    Generic.log('[> RCON]    ' + msg);
   rcon.send(msg);
   return;
 };
@@ -56,5 +56,5 @@ function format(discord, m, color = 'white') {
     }
   }
   return r;
-
+}
 

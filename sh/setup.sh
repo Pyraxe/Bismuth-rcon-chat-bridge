@@ -18,5 +18,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ./clearlogs.sh
 
 cd "$DIR/.."
-node bot.js |& tee "log/$(timestamp).log" &
+node main.js |& tee "log/$(timestamp).log" &
 

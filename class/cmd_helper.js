@@ -8,12 +8,12 @@ module.exports = class CmdHelper {
   static find(a) {
     return aliases[a];
   }
-  static parse(msg) {
+  static parse(m) {
     if (!m.startsWith(DiscordConf.prefix))
       return false;
-    var split = get_args(msg.substring(DiscordConf.prefix.length));
+    var split = get_args(m.substring(DiscordConf.prefix.length));
     var args = split.slice(1), aliase = split[0];
-    var cmd = CmdHelpers.find(aliase);
+    var cmd = CmdHelper.find(aliase);
     if (!cmd)
       return false;
     return { aliase: cmd, args: args, cmd: cmd };
@@ -22,11 +22,11 @@ module.exports = class CmdHelper {
 
 // Lets find all .js classes in ../cmd/
 // We create one objectt per filee and store it in cmds
-fs.readdirSync('../cmd/').forEach(f => {
-  var s = fs.lstatSync('../cmd/' + f);
+fs.readdirSync('cmd/').forEach(f => {
+  var s = fs.lstatSync('cmd/' + f);
   if (!s.isDirectory() && f.length > 3 && f.slice(f.length - 3) == '.js') {
     s = f.substring(0, f.length - 3);
-    var c = new require('../cmd/' + f)();
+    var c = new (require('../cmd/' + f))();
     cmds.push(c);
     for (var a of c.aliases)
       aliases[a] = c;

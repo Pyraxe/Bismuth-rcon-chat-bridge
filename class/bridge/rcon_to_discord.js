@@ -1,7 +1,12 @@
 const ConfDiscord = require('../../config/discord');
-const log = requir('../../config/generic');
+const ConfGeneric = require('../../config/generic');
+const Generic = require('../generic');
+
+var channel = null;
 
 module.exports = function(discord, rcon, m) {
+  if (!channel)
+    channel = discord.channels.get(ConfDiscord.chat_bridge_channel);
   m = m.replace(/^<([^>]*)>(.*)/,'<`$1`> $2');
   var mentions = m.match(/@([^ ]+)/gi);
   if (mentions)
@@ -45,6 +50,6 @@ module.exports = function(discord, rcon, m) {
     }
 
   if (ConfGeneric.debug)
-    log('[> DISCORD] ' + m);
+    Generic.log('[> DISCORD] ' + m);
   discord.channels.get(ConfDiscord.chat_bridge_channel).send(m);
 }
