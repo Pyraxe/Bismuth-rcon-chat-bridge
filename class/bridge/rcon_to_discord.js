@@ -1,17 +1,8 @@
-module.exports = function(discord, rcon, m, old = null) {
-}
-/*
-  var msg = m.replace(/^<([^>]*)> (.*)/,'$2');
-  // if scoreboard cmd
-  if (msg.startsWith('s- ')) {
-    var objective = msg.substring(3).replace(/ .* /,'');
-    if (objective == 'clear')
-      objective  = '';
-    rcon_send('/scoreboard objectives setdisplay sidebar ' + objective);
-    return;
-  }
-  m = m.replace(/^<([^>]*)>(.*)/,'<`$1`> $2');
+const ConfDiscord = require('../../config/discord');
+const log = requir('../../config/generic');
 
+module.exports = function(discord, rcon, m) {
+  m = m.replace(/^<([^>]*)>(.*)/,'<`$1`> $2');
   var mentions = m.match(/@([^ ]+)/gi);
   if (mentions)
     for (mention of mentions) {
@@ -53,4 +44,7 @@ module.exports = function(discord, rcon, m, old = null) {
       }
     }
 
-  channel_send(m);*/
+  if (ConfGeneric.debug)
+    log('[> DISCORD] ' + m);
+  discord.channels.get(ConfDiscord.chat_bridge_channel).send(m);
+}

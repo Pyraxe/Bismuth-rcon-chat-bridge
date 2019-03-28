@@ -1,3 +1,6 @@
+const ConfGeneric = require('../../config/generic');
+const log = requir('../../config/generic');
+
 module.exports = function(discord, rcon, m, old = null) {
   var tellraw = [
     '<', { text:'@', color:'gray' }, (m.member ? m.member.displayName : m.author.username) + '> ',
@@ -7,8 +10,10 @@ module.exports = function(discord, rcon, m, old = null) {
     tellraw.push(format(discord, old, 'gray'));
     tellraw.push({ text:')', color: 'gray' });
   }
-
-  rcon_send('/tellraw @a [' + JSON.stringify(tellraw) + ']');
+  var msg = '/tellraw @a [' + JSON.stringify(tellraw) + ']';
+  if (ConfGeneric.debug)
+    log('[> RCON]    ' + msg);
+  rcon.send(msg);
   return;
 };
 
@@ -51,5 +56,5 @@ function format(discord, m, color = 'white') {
     }
   }
   return r;
-}
+
 

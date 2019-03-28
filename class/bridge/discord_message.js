@@ -1,5 +1,5 @@
 const DiscordToRcon = require('./discord_to_rcon.js');
-const ConfDiscord = rquire('../../config/discord');
+const ConfDiscord = require('../../config/discord');
 const CmdHelper = require('./cmd_helper');
 
 /*

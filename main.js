@@ -7,8 +7,7 @@ const DiscordUpdate = require('./class/bridge/discord_update.js');
 const RConMessage = require('./class/bridge/rcon_message.js');
 const RConResponse = require('./class/bridge/rcon_response.js');
 
-var running = false;
-function log(msg) { console.log('[' + (new Date()).toJSON().slice(0, 19).replace(/[-T]/g, ':') + '] ', msg); }
+var running = false, log = require('./class/generic').log;
 
 const rcon = new RCon(RConConf.host, RConConf.port, RConConf.pass);
 const discord = new Discord.Client();
