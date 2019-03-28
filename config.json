@@ -1,9 +1,0 @@
-{
-    "rcon_port": 25575,
-    "rcon_ip": "0.0.0.0",
-    "rcon_pwd": "password",
-    "discord_token": "Discord bot token",
-    "discord_channel": "Channel ID where chat bridge has to happen",
-    "debug": false,
-    "rcon_ping": true
-}
