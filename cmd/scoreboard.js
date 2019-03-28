@@ -6,7 +6,7 @@ module.exports = class Scoreboard extends Cmd {
     this.aliases = ['s', 'score', 'scoreboard'];
   }
   process_rcon(discord, rcon, m, a) {
-    rcon_send('/scoreboard objectives setdisplay sidebar ' + !a[0] || a[0] == 'clear' ? '' : a[0]);
+    this.send_rcon(rcon, '/scoreboard objectives setdisplay sidebar ' + (!a[0] || a[0] == 'clear' ? '' : a[0]));
     return true;
   }
 }

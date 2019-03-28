@@ -76,7 +76,6 @@ function get_args(s) {
     }
   }
   addword();
-  //console.log(r);
   return r;
   //return s.split(/\s+/).filter( function(e) { return e.trim().length > 0; } );
 }
