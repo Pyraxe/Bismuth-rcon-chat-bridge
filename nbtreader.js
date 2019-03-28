@@ -54,9 +54,9 @@ class EndTag extends Tag { }
 
 class ListTag extends Tag {
   parse_impl(stream) {
-    var  e_type = Tag.from_stream(stream), data = [];
+    var  e = Tag.from_stream(stream), data = [];
     for (var i = 0, l = this.parse_length(TAG_INT, stream); i < l; ++i)
-      data.push(e_type.parse_impl(stream));
+      data.push(e.parse_impl(stream));
     return data;
   }
 }
@@ -98,12 +98,9 @@ const TAG_END = new EndTag('end', 0),
 
 module.exports = class NBTReader {
   static parse_nbt(buffer, gzipped = true) {
-    if (gzipped)
-      buffer = zlib.unzipSync(buffer);
-
     const r = new stream.Readable();
     r._read = () => {};
-    r.push(buffer);
+    r.push(gzipped ? zlib.unzipSync(buffer) : buffer);
 
     return Tag.from_stream(r).parse(r);
   }
