@@ -35,8 +35,8 @@ discord.on('ready', function() {
 rcon.connect();
 log('RCON    init');
 
-rcon.on('message', (m) => RConMessage(m));
-rcon.on('response', (m) => RConResponse(m));
-discord.on('message', (m) => DiscordMessag(m));
-discord.on('update', (m) => DiscordUpdate(m));
+rcon.on('message', (m) => RConMessage(discord, rcon, m));
+rcon.on('response', (m) => RConResponse(discord, rcon, m));
+discord.on('message', (m) => DiscordMessag(discord, rcon, m));
+discord.on('update', (o,m) => DiscordUpdate(discord, rcon, o, m));
 
