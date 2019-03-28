@@ -4,42 +4,39 @@ const NBTReader = require('./nbtreader.js');
 const FtpConf = require('../config/ftp');
 const ScoreboardConf = require('../config/scoreboard');
 
+var opt = {
+  user: FtpConf.user,
+  pass: FtpConf.pass,
+  host: FtpConf.host,
+};
+var path = ScoreboardConf.ftp_path;
+var data = null;
+var time = 0;
+var ftp = new jsftp(opt);
+
 module.exports = class Scoreboard {
-  constructor() {
-    this.opt = {
-      user: FtpConf.user,
-      pass: FtpConf.pass,
-      host: FtpConf.host,
-    };
-    this.path = ScoreboardConf.ftp_path;
-    this.ftp = new jsftp(this.opt);
-    Scoreboard.data = null;
-    this.time = 0;
-    this.update();
-  }
-
-  async update() {
+  static get() { return data; }
+  static async update() {
     var t = Date.now();
-    if (t - ScoreboardConf.refresh < this.time)
-      return;
-    this.time = Date.now();
-    Scoreboard.data = NBTReader.parse_nbt(await this.getFile(), true);
-    return;
+    if (t - ScoreboardConf.refresh < time)
+      return data;
+    time = Date.now();
+    data = NBTReader.parse_nbt(await Scoreboard.getFile(), true);
+    return data;
   }
 
-  getFile() {
+  static getFile() {
     return new Promise(resolve => {
-      var sc = this;
-      this.ftp.auth(this.opt.user, this.opt.pass, function (e,r) {
+      ftp.auth(opt.user, opt.pass, function (e,r) {
         var buffer = null;
-        sc.ftp.get(sc.path, (e,s) => {
+        ftp.get(path, (e,s) => {
           if (e) {
-            sc.ftp.raw('quit', (e, d) => {});
+            ftp.raw('quit', (e, d) => {});
             return resolve(null);
           }
           s.on('data', d => { buffer = buffer ? Buffer.concat([buffer, d], buffer.length + d.length) : d; });
           s.on('close', e => {
-            sc.ftp.raw('quit', (e, d) => {});
+            ftp.raw('quit', (e, d) => {});
             return resolve(e ? null : buffer);
           });
           s.resume();
@@ -48,4 +45,5 @@ module.exports = class Scoreboard {
     });
   }
 };
-var sc = new module.exports();
+
+module.exports.update();

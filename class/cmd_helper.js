@@ -9,6 +9,8 @@ module.exports = class CmdHelper {
     return aliases[a];
   }
   static parse(m) {
+    //bad hackfix cuz members not happy
+    m = m.replace(/^s-/,'-s');
     if (!m.startsWith(DiscordConf.prefix))
       return false;
     var split = get_args(m.substring(DiscordConf.prefix.length));

@@ -31,21 +31,21 @@ function format(discord, m, color = 'white') {
       switch (t[1]) {
         case '#':
           var c = discord.channels.get(snowflake[1]);
-          r.push(c && c.name ? { text:'#' + c.name, color:'aqua' } : { text:t, color: color });
+          r.push(c && c.name ? { text:'#' + c.name, color:'white' } : { text:t, color: color });
           break;
         case'@':
           if (t[2] == '&') {
             var role = m.channel.guild.roles.get(snowflake[1]);
-            r.push(role ? { text:'@' + role.name, color:'aqua' } : { text:t, color: color });
+            r.push(role ? { text:'@' + role.name, color:'white' } : { text:t, color: color });
             break;
           }
           var member = m.channel.guild.members.get(snowflake[1]);
           if (member) {
-            r.push({ text:'@' + member.displayName, color:'aqua' });
+            r.push({ text:'@' + member.displayName, color:'white' });
             break;
           }
           member = discord.users.get(snowflake[1]).username;
-          r.push(member ? { text:'@' + member.username, color:'aqua' } : { text:t, color: color });
+          r.push(member ? { text:'@' + member.username, color:'white' } : { text:t, color: color });
           break;
         case ':':
           r.push(t.substring(1,t.length - snowflake[1].length - 1));
