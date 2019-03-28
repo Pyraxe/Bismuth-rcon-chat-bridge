@@ -103,7 +103,7 @@ module.exports = class NBTReader {
 
     const r = new stream.Readable();
     r._read = () => {};
-    r.push(buffer)
+    r.push(buffer);
 
     return Tag.from_stream(r).parse(r);
   }
