@@ -1,5 +1,4 @@
 const zlib = require('zlib');
-const fs = require('fs');
 const stream = require('stream');
 const Int64BE = require("int64-buffer").Int64BE;
 const Uint64BE = require("int64-buffer").Uint64BE;
