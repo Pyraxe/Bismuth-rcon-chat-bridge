@@ -20,6 +20,7 @@ module.exports = class Cmd {
   send_channel(channel, m) {
     if (ConfGeneric.debug)
       Generic.log('[> DISCORD] ' + m);
+    //channel.send(m, { disableEveryone: true });
     channel.send(m);
   }
 }
