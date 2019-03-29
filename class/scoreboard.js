@@ -27,7 +27,7 @@ module.exports = class Scoreboard {
   }
 
   static sanitize() {
-    var r = {}, playerscores = nbt.data[0].data[0].data;
+    var r = [], playerscores = nbt.data[0].data[0].data;
     for (var score of playerscores) {
       var name = score[3].data;
       var obj = score[0].data;

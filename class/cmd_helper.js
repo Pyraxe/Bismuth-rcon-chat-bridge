@@ -10,7 +10,7 @@ module.exports = class CmdHelper {
   }
   static parse(m) {
     //bad hackfix cuz members not happy
-    m = m.replace(/^s-/,'-s');
+    m = m.replace(/^(.)-/,'-$1');
     if (!m.startsWith(DiscordConf.prefix))
       return false;
     var split = get_args(m.substring(DiscordConf.prefix.length));

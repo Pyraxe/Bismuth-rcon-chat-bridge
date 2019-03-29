@@ -17,10 +17,10 @@ module.exports = class Cmd {
       Generic.log('[> RCON]    ' + m);
     rcon.send(m);
   }
-  send_channel(channel, m) {
+  async send_channel(channel, m) {
     if (ConfGeneric.debug)
       Generic.log('[> DISCORD] ' + m);
     //channel.send(m, { disableEveryone: true });
-    channel.send(m);
+    await channel.send(m);
   }
 }
