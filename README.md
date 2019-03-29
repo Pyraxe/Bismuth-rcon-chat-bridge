@@ -6,5 +6,6 @@ npm install discord.js
 npm install in64-buffer
 npm install python-struct
 npm install jsftp
+
 node main.js
 ```
