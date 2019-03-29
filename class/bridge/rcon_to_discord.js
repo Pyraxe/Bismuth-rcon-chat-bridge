@@ -51,5 +51,5 @@ module.exports = function(discord, rcon, m) {
 
   if (ConfGeneric.debug)
     Generic.log('[> DISCORD] ' + m);
-  discord.channels.get(ConfDiscord.chat_bridge_channel).send(m);
+  discord.channels.get(ConfDiscord.chat_bridge_channel_id).send(m);
 }

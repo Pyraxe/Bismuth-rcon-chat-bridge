@@ -1,5 +1,5 @@
 {
   "token": "Discord bot token",
-  "chat_bridge_channel": "Channel ID where chat bridge will take  place",
-  "prefix": "$"
+  "chat_bridge_channel_id": "Channel Snowflake ID where chat bridge will take place. example: 320752694715219971",
+  "prefix": "-"
 }
