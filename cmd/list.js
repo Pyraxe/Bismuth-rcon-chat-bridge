@@ -5,12 +5,26 @@ const Scores = require('../class/scoreboard');
 
 const BLANK = '	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰	󠇰';
 
-module.exports = class Scoreboard extends Cmd {
+module.exports = class Slist extends Cmd {
   constructor() {
     super();
     this.aliases = ['lstat', 'list', 'l'];
   }
   process_rcon(discord, rcon, m, a) {
+    var user = m.match(/^<([^>]*)>/)[1];
+    var matches = [], table = Scores.get();
+    for (var obj in table) {
+      // If arg empty (everything then) or contained
+      if (!a.length || obj.toLowerCase().includes(a[0].toLowerCase()))
+        matches.push(obj);
+    }
+    matches.sort();
+    var msg = '/tellraw ' + user + ' [' + JSON.stringify({text:matches.length + ' match' + (matches.length > 1 ? 'es': ''), color:'gray'}) + ']';
+    this.send_rcon(rcon, msg);
+    msg = JSON.stringify({text:matches.join(', '), color:'gray'});
+    if (matches.length > 0)
+      this.send_rcon(rcon, '/tellraw ' + user + ' [' + (msg.length < 1000 ? msg : JSON.stringify({text: 'Too many matches', color:'gray'})) + ']');
+    //var msg = '/tellraw @a [' + JSON.stringify(tellraw) + ']';
     return true;
   }
   async process_discord(discord, rcon, m, a) {
