@@ -13,6 +13,6 @@ module.exports = function(discord, rcon, m) {
   if (parse && parse.cmd.process_discord(discord, rcon, m, parse.args))
     return;
   //Chat bridge only  happens in one channel
-  if (m.channel.id == ConfDiscord.chat_bridge_channel)
+  if (m.channel.id == ConfDiscord.chat_bridge_channel_id)
     DiscordToRcon(discord, rcon, m);
 }

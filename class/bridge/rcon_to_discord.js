@@ -6,7 +6,7 @@ var channel = null;
 
 module.exports = function(discord, rcon, m) {
   if (!channel)
-    channel = discord.channels.get(ConfDiscord.chat_bridge_channel);
+    channel = discord.channels.get(ConfDiscord.chat_bridge_channel_id);
   m = m.replace(/^<([^>]*)>(.*)/,'<`$1`> $2');
   var mentions = m.match(/@([^ ]+)/gi);
   if (mentions)

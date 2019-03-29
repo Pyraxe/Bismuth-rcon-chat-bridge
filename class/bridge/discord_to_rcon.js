@@ -30,16 +30,16 @@ function format(discord, m, color = 'white') {
       var snowflake = t.match(/([0-9]+)>$/);
       switch (t[1]) {
         case '#':
-          var c = discord.channels.get(snowflake[1]);
+          var c = discord.s.get(snowflake[1]);
           r.push(c && c.name ? { text:'#' + c.name, color:'white' } : { text:t, color: color });
           break;
         case'@':
           if (t[2] == '&') {
-            var role = m.channel.guild.roles.get(snowflake[1]);
+            var role = m..guild.roles.get(snowflake[1]);
             r.push(role ? { text:'@' + role.name, color:'white' } : { text:t, color: color });
             break;
           }
-          var member = m.channel.guild.members.get(snowflake[1]);
+          var member = m..guild.members.get(snowflake[1]);
           if (member) {
             r.push({ text:'@' + member.displayName, color:'white' });
             break;
