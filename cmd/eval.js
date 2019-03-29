@@ -2,7 +2,6 @@ const Discord = require('discord.js')
 const exec = require('util').promisify(require('child_process').exec);
 
 const Cmd = require('./cmd');
-const Scoreboard = require('../class/scoreboard');
 
 module.exports = class Scoreboard extends Cmd {
   constructor() {

@@ -10,6 +10,7 @@ var opt = {
   host: FtpConf.host,
 };
 var path = ScoreboardConf.ftp_path;
+var nbt = null;
 var data = null;
 var time = 0;
 var ftp = new jsftp(opt);
@@ -21,8 +22,23 @@ module.exports = class Scoreboard {
     if (t - ScoreboardConf.refresh < time)
       return data;
     time = Date.now();
-    data = NBTReader.parse_nbt(await Scoreboard.getFile(), true);
-    return data;
+    nbt = NBTReader.parse_nbt(await Scoreboard.getFile(), true);
+    return Scoreboard.sanitize();
+  }
+
+  static sanitize() {
+    var r = {}, playerscores = nbt.data[0].data[0].data;
+    for (var score of playerscores) {
+      var name = score[3].data;
+      var obj = score[0].data;
+      var n = score[2].data;
+      if (!r[obj])
+        r[obj] = [];
+      r[obj].push({ name: name, score: n });
+    }
+    for (var obj in r)
+      r[obj] = r[obj].sort((a,b) => b.score - a.score);
+    return (data = r);
   }
 
   static getFile() {
